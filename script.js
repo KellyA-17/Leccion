@@ -23,7 +23,16 @@ function gameLoop() {
   // Actualizar posición de la pelota
   ballX += ballSpeedX;
   ballY += ballSpeedY;
+const aiSpeed = 3;
 
+    if (ballY + ballSize / 2 < rightPaddleY + paddleHeight / 2) {
+    rightPaddleY -= aiSpeed;
+    } else if (ballY + ballSize / 2 > rightPaddleY + paddleHeight / 2) {
+    rightPaddleY += aiSpeed;
+    }
+
+// Limitar la paleta dentro del canvas
+rightPaddleY = Math.max(0, Math.min(canvas.height - paddleHeight, rightPaddleY));
   // Rebote contra techo y piso
   if (ballY <= 0 || ballY + ballSize >= canvas.height) {
     ballSpeedY *= -1;
