@@ -28,6 +28,26 @@ function gameLoop() {
   if (ballY <= 0 || ballY + ballSize >= canvas.height) {
     ballSpeedY *= -1;
   }
+  // Colisión con paleta izquierda
+    if (
+    ballX <= 20 && // 10 (posición) + 10 (ancho paleta)
+    ballY + ballSize >= leftPaddleY &&
+    ballY <= leftPaddleY + paddleHeight
+    ) {
+    ballSpeedX *= -1;
+    ballX = 20; // Reposicionar para evitar rebote continuo
+    }
+    // Colisión con paleta derecha
+    if (
+    ballX + ballSize >= canvas.width - 20 &&
+    ballY + ballSize >= rightPaddleY &&
+    ballY <= rightPaddleY + paddleHeight
+    ) {
+    ballSpeedX *= -1;
+    ballX = canvas.width - 20 - ballSize;
+    }
+
+
 
   // Limpiar pantalla
   ctx.clearRect(0, 0, canvas.width, canvas.height);
