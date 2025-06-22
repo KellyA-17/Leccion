@@ -1,3 +1,6 @@
+//Contador variables
+let playerScore = 0;
+let aiScore = 0;
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -55,14 +58,21 @@ rightPaddleY = Math.max(0, Math.min(canvas.height - paddleHeight, rightPaddleY))
     ballSpeedX *= -1;
     ballX = canvas.width - 20 - ballSize;
     }
-
-
+    // Verificar si alguien falla y reiniciar pelota
+    if (ballX < 0) {
+    aiScore++;
+    resetBall();
+    } else if (ballX > canvas.width) {
+    playerScore++;
+    resetBall();
+    }
 
   // Limpiar pantalla
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = 'white';
   ctx.font = '20px Arial';
-  ctx.fillText('Juego Pong - Proyecto inicial', 10, 30);
+  ctx.fillText('Jugador: ' + playerScore, 50, 30);
+  ctx.fillText('IA: ' + aiScore, canvas.width - 150, 30);
 
   // Dibujar paletas
   ctx.fillRect(10, leftPaddleY, paddleWidth, paddleHeight);
@@ -74,5 +84,12 @@ rightPaddleY = Math.max(0, Math.min(canvas.height - paddleHeight, rightPaddleY))
   // Llamar el siguiente frame
   requestAnimationFrame(gameLoop);
 }
+    function resetBall() {
+    ballX = canvas.width / 2;
+    ballY = canvas.height / 2;
+    ballSpeedX *= -1;
+    ballSpeedY = (Math.random() > 0.5 ? 1 : -1) * 4;
+    }
+
 
 gameLoop(); // Iniciar animación
