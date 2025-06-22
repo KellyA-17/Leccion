@@ -8,6 +8,15 @@ let rightPaddleY = canvas.height / 2 - paddleHeight / 2;
 let ballX = canvas.width / 2, ballY = canvas.height / 2;
 const ballSize = 10;
 
+document.addEventListener('keydown', function (e) {
+  const speed = 10;
+  if (e.key === 'w' || e.key === 'W') {
+    leftPaddleY = Math.max(0, leftPaddleY - speed);
+  } else if (e.key === 's' || e.key === 'S') {
+    leftPaddleY = Math.min(canvas.height - paddleHeight, leftPaddleY + speed);
+  }
+});
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = 'white';
